@@ -87,9 +87,46 @@ let eventDataSchema = new Schema({
     collection: 'eventData'
 });
 
+//Collection for Company Data
+let companyDataSchema = new Schema({
+    _id: { type: String, default: uuid.v1},
+    companyName: {
+        type: String,
+        require: true
+    },
+    email: {
+        type: String
+    },
+    phoneNumbers: {
+        type: Array,
+        required: true
+    },
+    address: {
+        line1: {
+            type: String
+        },
+        line2: {
+            type: String,
+        },
+        city: {
+            type: String,
+            required: true
+        },
+        county: {
+            type: String,
+        },
+        zip: {
+            type: String,
+        }
+    }
+}, {
+    collection: 'companyData'
+});
+
 // create models from mongoose schemas
 const primarydata = mongoose.model('primaryData', primaryDataSchema);
 const eventdata = mongoose.model('eventData', eventDataSchema);
+const companydata = mongoose.model('companyData', companyDataSchema);
 
 // package the models in an object to export 
-module.exports = { primarydata, eventdata }
+module.exports = { primarydata, eventdata, companydata }
