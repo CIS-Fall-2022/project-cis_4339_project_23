@@ -5,10 +5,10 @@ const router = express.Router();
 let { eventdata } = require("../models/models"); 
 
 //2 months ago
-let date = new Date();
-(date.setMonth(date.getMonth() - 2));
-let dateInput = date.toLocaleDateString();
-
+let today = new Date();
+let dateCurrent = today.toLocaleDateString();
+(today.setMonth(today.getMonth() - 2));
+let datePast = today.toLocaleDateString();
 //GET all entries
 router.get("/", (req, res, next) => { 
     eventdata.find( 
@@ -129,17 +129,19 @@ router.put("/addAttendee/:id", (req, res, next) => {
     
 });
 //endpoint that creates Event Document with how many attendees that signed up for each individual event in last 2 months
-router.get('/eventSignUp', ( res, next) => {
+router.get('/eventSignUp', (req, res, next) => {
     eventdata.aggregate([
-      { $match : { $gte: [{ $toDate: dateInput }, "$date"]}},
-      { $project : { _id : 0, eventName : 1, services : 0, date : 1, address : 0, description:0, count : {$size: '$attendees'}}},
+        { $project : { _id : 0, eventName : 1, date : 1, numberofattendees : {$size: '$attendees' }}},
+        { $match : {
+            date: {'$gte':datePast },
+        } },
     ], (error, data) => {
-      if (error) {
-        return next(error)
-      } else {
-        res.json(data);
-      }
+        if (error) {
+          return next(error)
+        } else {
+          res.json(data);
+        }
     });
-});
+  });
 
 module.exports = router;
