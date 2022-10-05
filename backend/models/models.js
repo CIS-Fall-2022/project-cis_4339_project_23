@@ -40,11 +40,30 @@ let primaryDataSchema = new Schema({
         zip: {
             type: String,
         }
+    },
+    orgID:{
+        type:[{ type: String, ref: 'orgdata'}],
+        required: true,
+        validate: [(orgdata) => orgdata.length > 0] //needs a least one organization 
     }
-}, {
+
+}, 
+{
     collection: 'primaryData',
     timestamps: true
 });
+
+//collection for orgData
+let orgDataSchema = new Schema ({
+    _id: {type: String, default: uuid.v1 },
+    orgName: {
+        type: String,
+        require: true
+    },
+    },
+    {
+        collection: 'orgData'
+    });
 
 //collection for eventData
 let eventDataSchema = new Schema({
@@ -90,6 +109,7 @@ let eventDataSchema = new Schema({
 // create models from mongoose schemas
 const primarydata = mongoose.model('primaryData', primaryDataSchema);
 const eventdata = mongoose.model('eventData', eventDataSchema);
+const orgdata = mongoose.model('orgData',orgDataSchema);
 
 // package the models in an object to export 
-module.exports = { primarydata, eventdata }
+module.exports = { primarydata, eventdata, orgdata }
