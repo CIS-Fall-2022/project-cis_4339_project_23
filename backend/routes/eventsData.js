@@ -4,6 +4,12 @@ const router = express.Router();
 //importing data model schemas
 let { eventdata } = require("../models/models"); 
 
+//Date calculation
+let today = new Date();
+let dateCurrent = today.toLocaleDateString();
+(today.setMonth(today.getMonth() - 2));
+let datePast = today.toLocaleDateString();
+
 //GET all entries
 router.get("/", (req, res, next) => { 
     eventdata.find( 
@@ -137,8 +143,6 @@ router.put("/addAttendee/:id", (req, res, next) => {
         }
     );
 });
-<<<<<<< Updated upstream
-=======
 //endpoint that creates Event Document with how many attendees that signed up for each individual event in last 2 months
 router.get('/eventSignUp', (req, res, next) => {
     eventdata.aggregate([
@@ -156,6 +160,5 @@ router.get('/eventSignUp', (req, res, next) => {
         }
     });
   });
->>>>>>> Stashed changes
 
 module.exports = router;
