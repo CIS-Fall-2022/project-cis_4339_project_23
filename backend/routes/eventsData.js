@@ -137,5 +137,25 @@ router.put("/addAttendee/:id", (req, res, next) => {
         }
     );
 });
+<<<<<<< Updated upstream
+=======
+//endpoint that creates Event Document with how many attendees that signed up for each individual event in last 2 months
+router.get('/eventSignUp', (req, res, next) => {
+    eventdata.aggregate([
+        { $project : { _id : 0, eventName : 1, date : 1, numberofattendees : {$size: '$attendees' }}},
+        { $match : {
+            date: {
+                '$gte': datePast,
+            },
+        } },
+    ], (error, data) => {
+        if (error) {
+          return next(error)
+        } else {
+          res.json(data);
+        }
+    });
+  });
+>>>>>>> Stashed changes
 
 module.exports = router;
