@@ -142,8 +142,7 @@ router.put("/addAttendee/:id", (req, res, next) => {
 router.get('/eventSignUp', (req, res, next) => {
 
     let limitdate = new Date();
-    startdate.setMonth(limitdate.getMonth() - 2);
-    console.log(startdate);
+    limitdate.setMonth(limitdate.getMonth() - 2);
 
     eventdata.aggregate([
         { $project : { _id : 0, eventName : 1, date : 1, numberofattendees : {$size: '$attendees' }}},
