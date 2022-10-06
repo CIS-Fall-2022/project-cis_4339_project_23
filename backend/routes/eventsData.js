@@ -141,14 +141,16 @@ router.put("/addAttendee/:id", (req, res, next) => {
 //endpoint that creates Event Document with how many attendees that signed up for each individual event in last 2 months
 router.get('/eventSignUp', (req, res, next) => {
 
-    let limitdate = new Date();
-    limitdate.setMonth(limitdate.getMonth() - 2);
-
+    let startdate = new Date();
+    startdate.setMonth(startdate.getMonth() - 3);
+    let enddate = new Date();
+    
     eventdata.aggregate([
         { $project : { _id : 0, eventName : 1, date : 1, numberofattendees : {$size: '$attendees' }}},
         { $match : {
             date: {
-                '$gte': limitdate,
+                '$gte': startdate,
+                '$lt': enddate
             },
         } },
     ], (error, data) => {
