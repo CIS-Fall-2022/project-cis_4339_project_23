@@ -4,11 +4,6 @@ const router = express.Router();
 //importing data model schemas
 let { eventdata } = require("../models/models"); 
 
-//2 months ago
-let today = new Date();
-let dateCurrent = today.toLocaleDateString();
-(today.setMonth(today.getMonth() - 2));
-let datePast = today.toLocaleDateString();
 //GET all entries
 router.get("/", (req, res, next) => { 
     eventdata.find( 
@@ -84,6 +79,21 @@ router.post("/", (req, res, next) => {
     );
 });
 
+//DELETE
+router.delete("/delete/:id", (req, res, next) => {
+    eventdata.findOneAndDelete(
+        { _id: req.params.id },
+        req.body,
+        (error, data) => {
+            if (error) {
+                return next(error);
+            } else {
+                return res.json(error);
+            }
+        }
+    );
+});
+
 //PUT
 router.put("/:id", (req, res, next) => {
     eventdata.findOneAndUpdate(
@@ -101,7 +111,7 @@ router.put("/:id", (req, res, next) => {
 
 //PUT add attendee to event
 router.put("/addAttendee/:id", (req, res, next) => {
-    //only add attendee if not yet signed uo
+    //only add attendee if not yet signed up
     eventdata.find( 
         { _id: req.params.id, attendees: req.body.attendee }, 
         (error, data) => { 
@@ -126,14 +136,22 @@ router.put("/addAttendee/:id", (req, res, next) => {
             }
         }
     );
-    
 });
+
 //endpoint that creates Event Document with how many attendees that signed up for each individual event in last 2 months
 router.get('/eventSignUp', (req, res, next) => {
+
+    let startdate = new Date();
+    startdate.setMonth(startdate.getMonth() - 2);
+    let enddate = new Date();
+    
     eventdata.aggregate([
         { $project : { _id : 0, eventName : 1, date : 1, numberofattendees : {$size: '$attendees' }}},
         { $match : {
-            date: {'$gte':datePast },
+            date: {
+                '$gte': startdate,
+                '$lt': enddate
+            },
         } },
     ], (error, data) => {
         if (error) {
