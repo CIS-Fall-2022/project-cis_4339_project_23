@@ -1,6 +1,7 @@
 const uuid = require('uuid');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+require("dotenv").config();  
 
 //collection for intakeData
 let primaryDataSchema = new Schema({
@@ -40,8 +41,15 @@ let primaryDataSchema = new Schema({
         zip: {
             type: String,
         }
+    },
+    orgID:{
+        type: String,
+        default: process.env.ORG,
+        required: true
     }
-}, {
+
+}, 
+{
     collection: 'primaryData',
     timestamps: true
 });
@@ -92,4 +100,4 @@ const primarydata = mongoose.model('primaryData', primaryDataSchema);
 const eventdata = mongoose.model('eventData', eventDataSchema);
 
 // package the models in an object to export 
-module.exports = { primarydata, eventdata }
+module.exports = { primarydata, eventdata}
