@@ -1,6 +1,7 @@
 const uuid = require('uuid');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+require("dotenv").config();  
 
 //collection for intakeData
 let primaryDataSchema = new Schema({
@@ -42,9 +43,8 @@ let primaryDataSchema = new Schema({
         }
     },
     orgID:{
-        type:[{ type: String, ref: 'orgdata'}],
-        required: true,
-        validate: [(orgdata) => orgdata.length > 0] //needs a least one organization 
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'orgData'
     }
 
 }, 
@@ -52,18 +52,6 @@ let primaryDataSchema = new Schema({
     collection: 'primaryData',
     timestamps: true
 });
-
-//collection for orgData
-let orgDataSchema = new Schema ({
-    _id: {type: String, default: uuid.v1 },
-    orgName: {
-        type: String,
-        require: true
-    },
-    },
-    {
-        collection: 'orgData'
-    });
 
 //collection for eventData
 let eventDataSchema = new Schema({
@@ -101,10 +89,27 @@ let eventDataSchema = new Schema({
     },
     attendees: [{
         type: String
-    }]
+    }],
+    orgID:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'orgData'
+    }
 }, {
     collection: 'eventData'
 });
+
+//collection for orgData
+let orgDataSchema = new Schema ({
+    _id: {type: String, default: uuid.v1 },
+    orgName: {
+        type: String,
+        require: true
+    },
+    },
+    {
+        collection: 'orgData'
+    });
+
 
 // create models from mongoose schemas
 const primarydata = mongoose.model('primaryData', primaryDataSchema);
@@ -112,4 +117,4 @@ const eventdata = mongoose.model('eventData', eventDataSchema);
 const orgdata = mongoose.model('orgData',orgDataSchema);
 
 // package the models in an object to export 
-module.exports = { primarydata, eventdata, orgdata }
+module.exports = { primarydata, eventdata, orgdata}
