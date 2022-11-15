@@ -3,7 +3,7 @@
     <div id="_container" class="h-screen">
       <header class="w-full">
         <section class="text-center">
-          <img class="m-auto" src="@\assets\DanPersona.svg" />
+          <img class="m-auto" src="@\assets\DanPersona.png" />
         </section>
         <nav class="mt-10">
           <ul class="flex flex-col gap-4">
