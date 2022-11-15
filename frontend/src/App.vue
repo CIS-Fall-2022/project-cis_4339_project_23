@@ -44,15 +44,8 @@
     <div class="grow w-4/5">
       <section
         class="justify-end items-center h-24 flex"
-        style="
-          background: linear-gradient(250deg, #C8102E 70%, #efecec 50.6%);
-        "
-      >
-<<<<<<< Updated upstream
-        <h1 class="mr-20 text-3xl text-white">Dataplatform</h1>
-=======
+        style="background: linear-gradient(250deg, #C8102E 70%, #efecec 50.6%)">
       <envnameVue class="mr-20 text-3xl text-white"></envnameVue>
->>>>>>> Stashed changes
       </section>
       <div>
         <router-view></router-view>

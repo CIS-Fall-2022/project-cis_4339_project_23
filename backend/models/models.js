@@ -43,9 +43,8 @@ let primaryDataSchema = new Schema({
         }
     },
     orgID:{
-        type: String,
-        default: process.env.ORG,
-        required: true
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'orgData'
     }
 
 }, 
@@ -90,14 +89,33 @@ let eventDataSchema = new Schema({
     },
     attendees: [{
         type: String
-    }]
+    }],
+    orgID:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'orgData'
+    }
 }, {
     collection: 'eventData'
 });
 
+//collection for orgData
+let orgDataSchema = new Schema ({
+    _id: {type: String, default: uuid.v1 },
+    orgName: {
+        type: String,
+        require: true
+    },
+    },
+    {
+        collection: 'orgData'
+    });
+
+
 // create models from mongoose schemas
 const primarydata = mongoose.model('primaryData', primaryDataSchema);
 const eventdata = mongoose.model('eventData', eventDataSchema);
+const orgdata = mongoose.model('orgData', orgDataSchema);
 
 // package the models in an object to export 
-module.exports = { primarydata, eventdata}
+
+module.exports = { primarydata, eventdata, orgdata}
