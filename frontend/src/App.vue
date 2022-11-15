@@ -48,11 +48,8 @@
           background: linear-gradient(250deg, #C8102E 70%, #efecec 50.6%);
         "
       >
-<<<<<<< Updated upstream
-        <h1 class="mr-20 text-3xl text-white">Dataplatform</h1>
-=======
+
       <envnameVue class="mr-20 text-3xl text-white"></envnameVue>
->>>>>>> Stashed changes
       </section>
       <div>
         <router-view></router-view>

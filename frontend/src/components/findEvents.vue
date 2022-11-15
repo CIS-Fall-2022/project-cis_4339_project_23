@@ -124,6 +124,15 @@ export default {
         this.queryData = resp.data;
       });
     },
+      DeleteEvent() {
+      let apiURL = import.meta.env.VITE_ROOT_API + `/primarydata/delete/${this.id}`;
+      axios.delete(apiURL, this.client).then(() => {
+        alert("The client has been deleted.");
+        this.$router.back().catch((error) => {
+          console.log(error);
+        });
+      });
+    }, //delete a client based on id input by the user
     clearSearch() {
       //Resets all the variables
       this.searchBy = "";
