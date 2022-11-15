@@ -1,8 +1,10 @@
 const express = require("express"); 
+const { Types, default: mongoose } = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
 const router = express.Router(); 
 
 //importing data model schemas
-let { primarydata } = require("../models/models"); 
+let { primarydata, orgdata } = require("../models/models"); 
 let { eventdata } = require("../models/models"); 
 
 //GET all entries
@@ -114,6 +116,23 @@ router.delete("/delete/:id", (req, res, next) => {
             }
         }
     );
+        
 });
 
+router.get("/info", (req, res, next) => { 
+     orgdata.aggregate([
+        { $match:{
+             _id:  ObjectId(process.env.ORG)
+            },
+        }
+        ], //requires organization id in data
+        (error, data) => {
+            if (error) {
+                return next(error);
+            } else {
+                res.json(data);
+            }
+        }
+    ).sort({ 'updatedAt': -1 }).limit(10);
+});
 module.exports = router;

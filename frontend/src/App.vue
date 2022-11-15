@@ -48,7 +48,8 @@
           background: linear-gradient(250deg, #C8102E 70%, #efecec 50.6%);
         "
       >
-        <h1 class="mr-20 text-3xl text-white">Dataplatform</h1>
+
+      <envnameVue class="mr-20 text-3xl text-white"></envnameVue>
       </section>
       <div>
         <router-view></router-view>
@@ -58,8 +59,12 @@
 </template>
 
 <script>
+import envnameVue from './components/envname.vue';
 export default {
   name: "App",
+  components: {
+    envnameVue
+  }
 };
 </script>
 
