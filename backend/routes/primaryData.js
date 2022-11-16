@@ -10,6 +10,7 @@ let { eventdata } = require("../models/models");
 //GET all entries
 router.get("/", (req, res, next) => { 
     primarydata.find( 
+        {orgID: process.env.ORG}, //requires organization id in data
         (error, data) => {
             if (error) {
                 return next(error);
@@ -23,7 +24,7 @@ router.get("/", (req, res, next) => {
 //GET single entry by ID
 router.get("/id/:id", (req, res, next) => {
     primarydata.find( 
-        { _id: req.params.id }, 
+        { _id: req.params.id, orgID: process.env.ORG },  //requires organization id in data
         (error, data) => {
             if (error) {
                 return next(error);
@@ -60,7 +61,7 @@ router.get("/search/", (req, res, next) => {
 //GET events for a single client
 router.get("/events/:id", (req, res, next) => { 
     eventdata.find( 
-        { attendees: req.params.id }, 
+        { attendees: req.params.id, orgID: process.env.ORG }, //requires organization id in data
         (error, data) => { 
             if (error) {
                 return next(error);
@@ -71,8 +72,9 @@ router.get("/events/:id", (req, res, next) => {
     );
 });
 
-//POST
+//POST create client
 router.post("/", (req, res, next) => { 
+    req.body.orgID = process.env.ORG //requires organization id in data
     primarydata.create( 
         req.body,
         (error, data) => { 
@@ -91,7 +93,7 @@ router.post("/", (req, res, next) => {
 //PUT update (make sure req body doesn't have the id)
 router.put("/:id", (req, res, next) => { 
     primarydata.findOneAndUpdate( 
-        { _id: req.params.id }, 
+        { _id: req.params.id, orgID: process.env.ORG }, //requires organization id in data
         req.body,
         (error, data) => {
             if (error) {
