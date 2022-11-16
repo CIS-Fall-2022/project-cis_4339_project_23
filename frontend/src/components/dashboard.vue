@@ -135,14 +135,3 @@ export default {
   }
 }
 </script>
-
-<style>
-#_container {
-  background-color: #c8102e;
-  color: white;
-  padding: 18px;
-}
-#_divide{
-  padding-bottom: 50px;
-}
-</style>
