@@ -101,6 +101,7 @@ export default {
         alert("Update has been saved.");
         this.$router.back().catch((error) => {
           console.log(error);
+        
         });
       });
     },
@@ -338,13 +339,20 @@ export default {
             <button
               @click="handleClientUpdate"
               type="submit"
-              class="bg-red-700 text-white rounded"
+              class="mt-5 bg-red-700 text-white rounded"
             >Update Client</button>
+          </div>
+          <div class="flex justify-between mt-10 mr-20"> <!--delete button connected to the delete method -->
+            <button
+              @click="DeleteClient" 
+              type="submit"
+              class="mt-5 bg-red-700 text-white rounded"
+            >Delete Client</button>
           </div>
           <div class="flex justify-between mt-10 mr-20">
             <button
               type="reset"
-              class="border border-red-700 bg-white text-red-700 rounded"
+              class="mt-5 border border-red-700 bg-white text-red-700 rounded"
               @click="$router.go(-1)"
             >Go back</button>
           </div>
@@ -389,11 +397,6 @@ export default {
                 class="mt-5 bg-red-700 text-white rounded"
               >Add Client to Events</button>
               
-              <button
-                @click="DeleteClient"
-                type="submit"
-                class="mt-5 bg-red-700 text-white rounded"
-              >Delete Client</button>
             </div>
           </div>
         </div>

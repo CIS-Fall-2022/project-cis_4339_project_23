@@ -20,7 +20,8 @@ router.get("/", (req, res, next) => {
 
 //GET single entry by ID
 router.get("/id/:id", (req, res, next) => { 
-    eventdata.find({ _id: req.params.id, orgID: process.env.ORG }, (error, data) => { //requires organization id in data
+    eventdata.find({ _id: req.params.id, orgID: process.env.ORG }, //requires organization id in data
+        (error, data) => { 
         if (error) {
             return next(error)
         } else {
@@ -41,7 +42,6 @@ router.get("/search/", (req, res, next) => {
         }
     };
     eventdata.find(
-        {orgID: process.env.ORG}, //requires organization id in data
         dbQuery, 
         (error, data) => { 
             if (error) {
@@ -67,7 +67,7 @@ router.get("/client/:id", (req, res, next) => {
     );
 });
 
-//POST
+//POST create event
 router.post("/", (req, res, next) => {
     req.body.orgID = process.env.ORG //requires organization id in data
     eventdata.create( 
@@ -97,7 +97,7 @@ router.delete("/delete/:id", (req, res, next) => {
     );
 });
 
-//PUT
+//PUT update client
 router.put("/:id", (req, res, next) => {
     eventdata.findOneAndUpdate(
         { _id: req.params.id, orgID: process.env.ORG },

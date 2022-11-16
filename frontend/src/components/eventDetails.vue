@@ -53,9 +53,11 @@
           <div class="flex flex-col">
             <label class="block">
               <span class="text-gray-700">Description</span>
+              <!-- description data assigned to schema field name -->
               <textarea
                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 rows="2"
+                v-model="event.description" 
               ></textarea>
             </label>
           </div>
@@ -193,13 +195,20 @@
             <button
               @click="handleEventUpdate"
               type="submit"
-              class="bg-red-700 text-white rounded"
+              class="mt-5 bg-red-700 text-white rounded"
             >Update Event</button>
+          </div>
+          <div class="flex justify-between mt-10 mr-20"> <!-- delete button linked to delete method -->
+            <button 
+              @click="DeleteEvent" 
+              type="submit"
+              class="mt-5 bg-red-700 text-white rounded"
+            >Delete Event</button>
           </div>
           <div class="flex justify-between mt-10 mr-20">
             <button
               type="reset"
-              class="border border-red-700 bg-white text-red-700 rounded"
+              class="mt-5 border border-red-700 bg-white text-red-700 rounded"
               @click="$router.go(-1)"
             >Go back</button>
           </div>
@@ -322,6 +331,15 @@ export default {
     },
     editClient(clientID) {
       this.$router.push({ name: "updateclient", params: { id: clientID } });
+    },
+    DeleteEvent() {
+      let apiURL = import.meta.env.VITE_ROOT_API + `/eventdata/delete/${this.id}`;
+      axios.delete(apiURL, this.event).then(() => {
+        alert("The event has been deleted.");
+        this.$router.back().catch((error) => {
+          console.log(error);
+        });
+      });
     },
   },
   // sets validations for the various data properties
