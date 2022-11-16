@@ -45,7 +45,7 @@
       <section
         class="justify-end items-center h-24 flex"
         style="background: linear-gradient(250deg, #C8102E 70%, #efecec 50.6%)">
-		<envnameVue class="mr-20 text-3xl text-white"></envnameVue>
+		    <envnameVue class="mr-20 text-3xl text-white"></envnameVue>
       </section>
       <div>
         <router-view></router-view>
@@ -63,11 +63,3 @@ export default {
   }
 };
 </script>
-
-<style>
-#_container {
-  background-color: #c8102e;
-  color: white;
-  padding: 18px;
-}
-</style>
