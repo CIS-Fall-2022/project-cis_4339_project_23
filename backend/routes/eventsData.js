@@ -1,8 +1,10 @@
-const express = require("express");
-const router = express.Router();
+const express = require("express"); 
+const { Types, default: mongoose } = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
+const router = express.Router(); 
 
 //importing data model schemas
-let { eventdata } = require("../models/models"); 
+let { eventdata, orgdata } = require("../models/models"); 
 
 //GET all entries
 router.get("/", (req, res, next) => { 
@@ -147,15 +149,15 @@ router.get('/eventSignUp', (req, res, next) => {
     let startdate = new Date();
     startdate.setMonth(startdate.getMonth() - 2);
     let enddate = new Date();
-    console
     
     eventdata.aggregate([
-        { $project : { _id : 0, eventName : 1, date : 1, numberofattendees : {$size: '$attendees' }}},
+        { $project : { _id : 0, eventName : 1, date : 1, numberofattendees : {$size: '$attendees'}, orgID: 1 }},
         { $match : {
             date: {
                 '$gte': startdate,
                 '$lt': enddate
             },
+            orgID:  ObjectId(process.env.ORG)
         } },
     ], (error, data) => {
         if (error) {

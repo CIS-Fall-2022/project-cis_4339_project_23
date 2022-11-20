@@ -4,7 +4,7 @@
       <h1 class="font-bold text-4xl text-red-700 tracking-widest text-center mt-10">Clients Served in Last 2 Months</h1>
     </div>
     <!-- Display Found Data -->
-    <div>
+    <div id="_divide">
             <AttendeesChartVue
               v-if="!loading && !error"
               :label="labels"
@@ -40,14 +40,14 @@
     <div class="grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-x-6 gap-y-10">
       <div class="flex-col col-span-2">
         <table class="min-w-full shadow-md rounded">
-          <thead class="bg-gray-50 text-xl">
+          <thead id="_container" class="text-xl">
             <tr>
               <th class="p-1 text-left">Event Name</th>
               <th class="p-5 text-center">Event Date</th>
               <th class="p-5 text-center">Number Of Attendees</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-gray-300">
+          <tbody class="divide-y divide-red -300">
             <tr v-for="event in queryData" :key="event._id">
               <td class="p-2 text-left">{{ event.eventName }}</td>
               <td class="p-2 text-center">{{ formattedDate(event.date) }}</td>

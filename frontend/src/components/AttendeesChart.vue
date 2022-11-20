@@ -1,5 +1,5 @@
 <template>
-  <canvas ref="myChart"></canvas>
+  <canvas height="120" ref="myChart"></canvas>
 </template>
 
 <script>
@@ -25,7 +25,7 @@ export default {
         datasets: [
           {
             label: "Attendees",
-            backgroundColor: "rgba(144,238,144 , 0.9 )",
+            backgroundColor: "rgba(144,238,144, 0.9 )",
             data: this.chartData,
           },
         ],
