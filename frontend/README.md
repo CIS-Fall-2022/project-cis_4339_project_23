@@ -11,7 +11,7 @@ npm install
 Setup a .env file with following variables, e.g.:
 
 ```
-VITE_ROOT_API=http://localhost:3001 (makes sure this matches port for established in backend and match with organization selected)
+VITE_ROOT_API=http://localhost:3001 (makes sure port matches with the backend port and matches with selected organization)
 MONGO_URL = mongodb+srv://<username>:<password>@cluster0.abcdc.mongodb.net/dbname
 ORG = selected organization id (ex: 63725cea7880fe54ac105f7d)
 PORT = match port with backend (ex: 3001)
