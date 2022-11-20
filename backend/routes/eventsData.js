@@ -162,6 +162,8 @@ router.get('/eventSignUp', (req, res, next) => {
     ], (error, data) => {
         if (error) {
           return next(error)
+        } else if (data.length == null) {
+            res.send('There are no events in the past 2 months.').status(404); //error handling: not events within the last 2 months
         } else {
           res.json(data);
         }

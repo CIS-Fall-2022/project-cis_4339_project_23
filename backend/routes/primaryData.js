@@ -80,6 +80,8 @@ router.post("/", (req, res, next) => {
         (error, data) => { 
             if (error) {
                 return next(error);
+            } else if (data.length == null) {
+                res.send('The client was not added.').status(404); //error handling: no client added bc no data given
             } else {
                 res.json(data); 
             }
