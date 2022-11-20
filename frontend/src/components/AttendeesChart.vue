@@ -15,11 +15,11 @@ export default {
       type: Array,
     },
   },
-  //establish Chart object af ter mounting the component
-  async mounted() {
+  //establish Chart object after mounting the component
+  async mounted() { //mounts instance
     console.log(this.chartData);
     await new Chart(this.$refs.myChart, {
-      type: "bar",
+      type: "bar", //type of chart
       data: {
         labels: this.label,
         datasets: [
