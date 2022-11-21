@@ -7,7 +7,7 @@ const router = express.Router();
 let { primarydata, orgdata } = require("../models/models"); 
 let { eventdata } = require("../models/models"); 
 
-//GET all entries
+//GET all entries through ID
 router.get("/", (req, res, next) => { 
     primarydata.find( 
         {orgID: process.env.ORG}, //requires organization id in data
@@ -107,7 +107,7 @@ router.put("/:id", (req, res, next) => {
     );
 });
 
-//DELETE a client
+//DELETE a client via ID
 router.delete("/delete/:id", (req, res, next) => { 
     primarydata.findOneAndDelete( 
         { _id: req.params.id }, 
@@ -123,6 +123,7 @@ router.delete("/delete/:id", (req, res, next) => {
         
 });
 
+//INFO api by matching it with the ID for objectID
 router.get("/info", (req, res, next) => { 
      orgdata.aggregate([
         { $match:{
