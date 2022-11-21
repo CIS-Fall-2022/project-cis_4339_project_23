@@ -6,7 +6,7 @@ const router = express.Router();
 //importing data model schemas
 let { eventdata } = require("../models/models"); 
 
-//GET all entries
+//GET all entries within the eventdata
 router.get("/", (req, res, next) => { 
     eventdata.find(
         {orgID: process.env.ORG}, //requires organization id in data
@@ -20,7 +20,7 @@ router.get("/", (req, res, next) => {
     ).sort({ 'updatedAt': -1 }).limit(10);
 });
 
-//GET single entry by ID
+//GET single entry by ID within the eventdata
 router.get("/id/:id", (req, res, next) => { 
     eventdata.find({ _id: req.params.id, orgID: process.env.ORG }, //requires organization id in data
         (error, data) => { 
@@ -32,8 +32,7 @@ router.get("/id/:id", (req, res, next) => {
     })
 });
 
-//GET entries based on search query
-//Ex: '...?eventName=Food&searchBy=name' 
+//GET entries based on search query and allows to search by name and date
 router.get("/search/", (req, res, next) => { 
     let dbQuery = "";
     if (req.query["searchBy"] === 'name') {
@@ -43,6 +42,7 @@ router.get("/search/", (req, res, next) => {
             date:  req.query["eventDate"]
         }
     };
+//finding event data to make a query
     eventdata.find(
         dbQuery, 
         (error, data) => { 
@@ -55,7 +55,7 @@ router.get("/search/", (req, res, next) => {
     );
 });
 
-//GET events for which a client is signed up
+//GET events for which a client is signed up via ID
 router.get("/client/:id", (req, res, next) => { 
     eventdata.find( 
         { attendees: req.params.id, orgID: process.env.ORG }, //requires organization id in data 
@@ -84,7 +84,7 @@ router.post("/", (req, res, next) => {
     );
 });
 
-//DELETE
+//DELETE API through ID from eventdata
 router.delete("/delete/:id", (req, res, next) => {
     eventdata.findOneAndDelete(
         { _id: req.params.id },
@@ -99,7 +99,7 @@ router.delete("/delete/:id", (req, res, next) => {
     );
 });
 
-//PUT update client
+//PUT update client nased on ID parameters
 router.put("/:id", (req, res, next) => {
     eventdata.findOneAndUpdate(
         { _id: req.params.id, orgID: process.env.ORG },
