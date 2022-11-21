@@ -28,18 +28,18 @@ The backend .env will hold the MONGO_URL, ORG, and PORT variables. All organizat
 
 For example the first organization will run a backend .env file that consist of:
 
-      MONGO_URL = mongodb+srv://ADMIN:database23@cluster0.shiau56.mongodb.net/group23projectcis4339
+      MONGO_URL = mongodb+srv://ADMIN:database23@cluster0.shiau56.mongodb.net/group##projectcis####
       ORG = organization1id
       PORT = 3001 
       
 Second organization:
-      MONGO_URL = mongodb+srv://ADMIN:database23@cluster0.shiau56.mongodb.net/group23projectcis4339 
+      MONGO_URL = mongodb+srv://ADMIN:database23@cluster0.shiau56.mongodb.net/group##projectcis#### 
       ORG = organization2id
       PORT = 3002
   
   
 Third Organization
-      MONGO_URL = mongodb+srv://ADMIN:database23@cluster0.shiau56.mongodb.net/group23projectcis4339
+      MONGO_URL = mongodb+srv://ADMIN:database23@cluster0.shiau56.mongodb.net/group##projectcis####
       ORG = organization3id
       PORT = 3003
       
@@ -48,7 +48,7 @@ Third Organization
     
 While the frontend .env file will hold the matching port number that was declared in the backend for the VITE_ROOT_API and the PORT variables. 
        VITE_ROOT_API=http://localhost:3001
-       MONGO_URL = mongodb+srv://ADMIN:database23@cluster0.shiau56.mongodb.net/group23projectcis4339
+       MONGO_URL = mongodb+srv://ADMIN:database23@cluster0.shiau56.mongodb.net/group##projectcis####
        ORG = organization1id
        PORT = 3001
 
